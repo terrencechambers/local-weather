@@ -1,0 +1,11 @@
+{
+    "require": {
+        "cartalyst/sentinel": "2.0.*",
+        "illuminate/database": "^5.2",
+        "illuminate/events": "^5.2",
+        "symfony/http-foundation": "^3.2",
+        "ircmaxell/password-compat": "^1.0",
+        "slim/slim": "~2.0",
+        "twig/twig": "~1.31"
+    }
+}

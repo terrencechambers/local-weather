@@ -1,10 +1,11 @@
 {% extends "app.html.twig" %}
 
-{% block headtext %} <title>Login</title> {% endblock %}
+{% block headtext %} <title>Sign up</title> {% endblock %}
 
 {% block head %} <link rel='stylesheet' href="/local-weather/files/style.css" /> {% endblock %}
 
 {% block content %}
+
     <main>
     <div class="container">
         <section class="signup_form row">
@@ -13,7 +14,15 @@
                     <div class="panel-body">
                         <form action="http://www.terrencechambers.com/local-weather/" method="POST" role="form" id="subscriptionForm">
                             <fieldset>
-                                <legend>Sign in</legend>
+                                <legend>Sign up</legend>
+                                <div class="col-md-12 form-group">
+                                    <input class="form-control" placeholder="First name" name="firstname" type="text" autofocus value="">
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <input class="form-control" placeholder="Last name" name="lastname" type="text" autofocus value="">
+                                </div>
+
                                 <div class="col-md-12 form-group">
                                     <input class="form-control" placeholder="E-mail" name="email" type="email" value="">
                                 </div>
@@ -22,13 +31,13 @@
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
 
-                                <div class="col-md-12 ">
-                                    <input id="remember" name="remember" type="checkbox" >
-                                    <label for="remember">Remember me</label>
+                                <div class="col-md-12 form-group">
+                                    <input class="form-control" placeholder="Confirm Password" name="password_confirmation" type="password" value="">
                                 </div>
                             </fieldset>
 
-                            <button class="btn btn-primary mbtn" style="margin-left: 15px;">Login</button>
+                            <i class="divider"></i>
+                            <button class="btn btn-primary mbtn" style="margin-left: 15px;">Join</button>
                         </form>
                     </div>
                 </div>

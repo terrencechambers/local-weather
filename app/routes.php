@@ -19,6 +19,11 @@ $app->get('/logout', function () use ($app) {
     $app->container->sentinel->logout();
     echo 'Logged out successfuly.';
 });
+
+$app->get('/sign-up', function () use ($app) {
+    $app->twig->display('signup.html.twig');
+});
+
 $app->get('/login', function () use ($app) {
     $app->twig->display('login.html.twig');
 });

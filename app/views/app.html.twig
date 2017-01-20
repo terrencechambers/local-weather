@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% block title %}{% endblock %}
+    {% block headtext %}{% endblock %}
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -13,6 +13,7 @@
 
     <!-- followed tutorial https://www.sitepoint.com/removing-the-pain-of-user-authorization-with-sentinel/
         by Younes Rafie -->
+    {% block head %}{% endblock %}
 
     {% block styles %}{% endblock %}
 </head>
@@ -33,6 +34,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="http://terrencechambers.com/local-weather/">Home</a></li>
                 <li><a href="http://terrencechambers.com/local-weather/login">Login</a></li>
+                <li><a href="http://terrencechambers.com/local-weather/sign-up">Sign Up</a></li>
             </ul>
         </div>
     </div>

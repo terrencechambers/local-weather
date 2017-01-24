@@ -24,6 +24,35 @@ $app->get('/sign-up', function () use ($app) {
     $app->twig->display('signup.html.twig');
 });
 
+$app->post('/sign-up', function () use ($app) {
+// we leave validation for another time
+    $data = $app->request->post();
+    $role = $app->container->sentinel->findRoleByName('Admin');
+    if ($app->container->sentinel->findByCredentials([
+        'login' => $data['email'],
+    ])) {
+        echo 'User already exists with this email.';
+        return;
+    }
+    $user = $app->container->sentinel->create([
+        'first_name' => $data['firstname'],
+        'last_name' => $data['lastname'],
+        'email' => $data['email'],
+        'password' => $data['password'],
+        'permissions' => [
+            'user.delete' => false,
+        ],
+    ]);
+// attach the user to the admin role
+    $role->users()->attach($user);
+// create a new activation for the registered user
+    $activation = (new Cartalyst\Sentinel\Activations\IlluminateActivationRepository)->create($user);
+    //this mail code will send out an email to the person signing up.
+    //mail($data['email'], "Activate your account", "Click on the link below \n http://www.terrencechambers.com/sentinel/public/user/activate?code={$activation->code}&login={$user->id}");
+    echo "Please check your email to complete your account registration. (or just use this <a href='/sentinel/public/user/activate?code={$activation->code}&login={$user->id}'>link</a>)";
+});
+
+
 $app->get('/login', function () use ($app) {
     $app->twig->display('login.html.twig');
 });
@@ -54,33 +83,7 @@ $app->post('/login', function () use ($app) {
 $app->get('/', function () use ($app) {
     $app->twig->display('home.html.twig');
 });
-$app->post('/', function () use ($app) {
-// we leave validation for another time
-    $data = $app->request->post();
-    $role = $app->container->sentinel->findRoleByName('Admin');
-    if ($app->container->sentinel->findByCredentials([
-        'login' => $data['email'],
-    ])) {
-        echo 'User already exists with this email.';
-        return;
-    }
-    $user = $app->container->sentinel->create([
-        'first_name' => $data['firstname'],
-        'last_name' => $data['lastname'],
-        'email' => $data['email'],
-        'password' => $data['password'],
-        'permissions' => [
-            'user.delete' => false,
-        ],
-    ]);
-// attach the user to the admin role
-    $role->users()->attach($user);
-// create a new activation for the registered user
-    $activation = (new Cartalyst\Sentinel\Activations\IlluminateActivationRepository)->create($user);
-    //this mail code will send out an email to the person signing up.
-    //mail($data['email'], "Activate your account", "Click on the link below \n http://www.terrencechambers.com/sentinel/public/user/activate?code={$activation->code}&login={$user->id}");
-    echo "Please check your email to complete your account registration. (or just use this <a href='/sentinel/public/user/activate?code={$activation->code}&login={$user->id}'>link</a>)";
-});
+
 $app->get('/user/activate', function () use ($app) {
     $code = $app->request->get('code');
     $activationRepository = new Cartalyst\Sentinel\Activations\IlluminateActivationRepository;
